@@ -133,7 +133,7 @@ def create_histogram(dictionary):
     print("*******************************")
 
 def traverse_graph():
-    print threading.currentThread().getName()
+    print(threading.currentThread().getName())
 
 def main():
     #thread1 = threading.Thread(target=traverse_graph, name='T1')

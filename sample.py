@@ -1,4 +1,3 @@
-import numpy as delete_list_item
 import math
 import threading
 import collections
@@ -99,12 +98,22 @@ def make_selection(array_of_cubes):
                     mark_selection(get_value_index(array_of_cubes[i][j][k]))                    
                 break
 
+
 def remove_half_solution(half_solution):
+    copy_of_array = []
+
+    available_pairs = []
+
     for i in range (len(half_solution)):
         for j in range (len(puzzle.array_of_cubes[i])):
-            if (half_solution[i] == puzzle.array_of_cubes[i][j]):
-                print(puzzle.array_of_cubes[i][j])
-                
+            if (half_solution[i] != puzzle.array_of_cubes[i][j]):
+                available_pairs.append(puzzle.array_of_cubes[i][j])
+        copy_of_array.append(available_pairs)
+        available_pairs = []
+
+    return copy_of_array
+
+
     '''    
         for j in range (len(puzzle.array_of_cubes[i])):
             for k in range (len(puzzle.array_of_cubes[j])):
@@ -157,9 +166,9 @@ def get_selection_counter():
 def assign_coloration():
     for i in range ((puzzle.number_of_cubes * puzzle.number_of_faces)):
 
-        puzzle.value_list.append(get_puzzle_one_coloration(i))
+        puzzle.value_list.append(get_puzzle_two_coloration(i))
 
-        puzzle.pair.append(get_puzzle_one_coloration(i))
+        puzzle.pair.append(get_puzzle_two_coloration(i))
 
         if ((i + 1) % 2 == 0):
             puzzle.cube.append(puzzle.pair)
@@ -227,12 +236,15 @@ def main():
     print(puzzle.solution_array)
     print(' ')
 
-    remove_half_solution(puzzle.solution_array)
+    puzzle.array_of_cubes = remove_half_solution(puzzle.solution_array)
 
     print('New array of cubes with half solution removed')
     print('---------------------------------------------')
     print(puzzle.array_of_cubes)
     print(' ')
+
+    puzzle.solution_array = []
+    puzzle.selection_count_array = get_selection_counter()
 
     print('Starting selection process')
     print('--------------------------')
