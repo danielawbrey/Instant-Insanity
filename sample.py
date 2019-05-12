@@ -101,18 +101,16 @@ def make_selection(array_of_cubes):
 
 def remove_half_solution(half_solution):
     copy_of_array = []
-    #copy_of_array = half_solution.copy()
+
     available_pairs = []
 
     for i in range (len(half_solution)):
         for j in range (len(puzzle.array_of_cubes[i])):
             if (half_solution[i] != puzzle.array_of_cubes[i][j]):
-              #  print(puzzle.array_of_cubes[i][j]) #INSTEAD OF PRINT JUST REMOVE IN HALF SOLUTION
                 available_pairs.append(puzzle.array_of_cubes[i][j])
         copy_of_array.append(available_pairs)
         available_pairs = []
-       # print('ienfnjnjkdvjkdn ')
-    #3print(copy_of_array)
+
     return copy_of_array
 
 
@@ -180,7 +178,7 @@ def assign_coloration():
             puzzle.array_of_cubes.append(puzzle.cube)
             puzzle.cube = []
                                
-def get_puzzle_two_coloration(cube_face):
+def get_puzzle_one_coloration(cube_face):
     return(1 + (math.floor(cube_face * math.pi) % 30))    
 
 def get_puzzle_two_coloration(cube_face):
@@ -251,9 +249,6 @@ def main():
     print('Starting selection process')
     print('--------------------------')
     make_selection(puzzle.array_of_cubes)
-
-    print('array cubes')
-    print(puzzle.array_of_cubes)
 
     print('Half solution 2')
     print('---------------')
