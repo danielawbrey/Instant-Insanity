@@ -75,29 +75,39 @@ def get_value_index(selection_value):
             return i 
             
 def mark_selection(index):
-    print('Updated selection count array:', puzzle.selection_count_array)
-    print(' ')
+    #print('Updated selection count array:', puzzle.selection_count_array)
+    #print(' ')
     for i in range (len(puzzle.selection_count_array)):
         if(i == index):
             if(puzzle.selection_count_array[i] < 2):
                 puzzle.selection_count_array[i] += 1
-        '''
             else:
                 #print(' ') 
                 #print("Error: too many selections of value", puzzle.set_of_values[i])
-                #print(' ') 
-        '''
+                #print(' ')
+                return puzzle.set_of_values[i]
 
 def make_selection(array_of_cubes):
+    cube_selection_made = False
+    value_error = None 
+    number_of_incorrect_selections = 0
     for i in range (len(array_of_cubes)):
         for j in range (len(array_of_cubes[i])):
             correct_solution_found = check_selection_correctness(array_of_cubes[i][j])
             if (correct_solution_found):
+                cube_selection_made = True
                 puzzle.solution_array.append(array_of_cubes[i][j])
-                for k in range (len(array_of_cubes[i][j])):
-                    mark_selection(get_value_index(array_of_cubes[i][j][k]))                    
+              
                 break
+            else:
+                number_of_incorrect_selections += 1
+                if (number_of_incorrect_selections == 2 and not value_error is None): # No selections in the row are possible; backtrack
+                        print("No element selection possible for cube", i, '...', 'too many selections of value', value_error)
+        number_of_incorrect_selections = 0
 
+def backtrack(index, conflicting_value, cube_number):
+    # Recursively search possibilities using index to search for a compatable alternative solution
+    return 
 
 def remove_half_solution(half_solution):
     copy_of_array = []
@@ -166,9 +176,9 @@ def get_selection_counter():
 def assign_coloration():
     for i in range ((puzzle.number_of_cubes * puzzle.number_of_faces)):
 
-        puzzle.value_list.append(get_puzzle_two_coloration(i))
+        puzzle.value_list.append(get_puzzle_three_coloration(i))
 
-        puzzle.pair.append(get_puzzle_two_coloration(i))
+        puzzle.pair.append(get_puzzle_three_coloration(i))
 
         if ((i + 1) % 2 == 0):
             puzzle.cube.append(puzzle.pair)
@@ -230,10 +240,11 @@ def main():
     print('Starting selection process')
     print('--------------------------')
     make_selection(puzzle.array_of_cubes)
+    print(' ')
 
     print('Half solution 1')
     print('---------------')
-    print(puzzle.solution_array)
+    print(len(puzzle.solution_array))
     print(' ')
 
     puzzle.array_of_cubes = remove_half_solution(puzzle.solution_array)
@@ -249,10 +260,11 @@ def main():
     print('Starting selection process')
     print('--------------------------')
     make_selection(puzzle.array_of_cubes)
+    print(' ')
 
     print('Half solution 2')
     print('---------------')
-    print(puzzle.solution_array)
+    print(len(puzzle.solution_array))
     print(' ')
 
 '''
