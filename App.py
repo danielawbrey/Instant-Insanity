@@ -9,6 +9,7 @@ def main():
     print('Array of cubes')
     print('--------------')
     print(puzzle.array_of_cubes)
+
     print(' ')
     print('Set of values')
     print('--------------')
@@ -18,7 +19,7 @@ def main():
     print(' ')
     print('Count of each value')
     print('-------------------')
-    print(puzzle.get_value_count(puzzle.get_value_set()))
+    print(puzzle.get_value_count())
 
     print(' ')
     puzzle.selection_count_array = puzzle.get_selection_counter()
@@ -45,11 +46,11 @@ def main():
 
     print('Half solution 1')
     print('---------------')
-    print(len(puzzle.solution_array))
-    print(puzzle.solution_array)
+    print('Solution length:', len(puzzle.solution_array))
+    #print(puzzle.solution_array)
     print(' ')
 
-    puzzle.array_of_cubes = puzzle.remove_half_solution(puzzle.solution_array)
+    puzzle.remove_half_solution(puzzle.solution_array)
 
     print('New array of cubes with half solution removed')
     print('---------------------------------------------')
@@ -59,6 +60,11 @@ def main():
     puzzle.solution_array = []
     puzzle.selection_count_array = puzzle.get_selection_counter()
 
+    print('New value count')
+    print('---------------')
+    print(puzzle.get_value_count())
+    print(' ')
+
     print('Starting selection process')
     print('--------------------------')
     puzzle.make_selection(puzzle.array_of_cubes)
@@ -66,8 +72,8 @@ def main():
 
     print('Half solution 2')
     print('---------------')
-    print(len(puzzle.solution_array))
-    print(puzzle.solution_array)
+    print('Solution length:', len(puzzle.solution_array))
+    #print(puzzle.solution_array)
     print(' ')
 
 if __name__ == "__main__": 
