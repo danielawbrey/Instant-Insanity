@@ -3,8 +3,6 @@ import Puzzle as puzzle_object
 def main():
     puzzle = puzzle_object.Puzzle(40)
 
-    puzzle.assign_coloration()
-
     print(' ')
     print('Array of cubes')
     print('--------------')
@@ -13,17 +11,14 @@ def main():
     print(' ')
     print('Set of values')
     print('--------------')
-    puzzle.set_of_values = puzzle.get_value_set()
     print(puzzle.set_of_values)
 
     print(' ')
     print('Count of each value')
     print('-------------------')
-    print(puzzle.get_value_count())
+    print(puzzle.value_count_array)
 
     print(' ')
-    puzzle.selection_count_array = puzzle.get_selection_counter()
-
     print("Number of values: ", len(puzzle.set_of_values), ',', "number of cubes: ", len(puzzle.array_of_cubes))
     print(' ')
 
@@ -50,6 +45,7 @@ def main():
     #print(puzzle.solution_array)
     print(' ')
 
+    # Removes half solution from array of cubes used for selection
     puzzle.remove_half_solution(puzzle.solution_array)
 
     print('New array of cubes with half solution removed')
@@ -57,7 +53,7 @@ def main():
     print(puzzle.array_of_cubes)
     print(' ')
 
-    puzzle.solution_array = []
+    # Create empty selection counter
     puzzle.selection_count_array = puzzle.get_selection_counter()
 
     print('New value count')
