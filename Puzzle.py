@@ -7,14 +7,16 @@ class Puzzle:
     def __init__(self, number_of_cubes):
         self.number_of_cubes = number_of_cubes
         self.number_of_faces = 6
-        self.set_of_values = []
+        self.solution_array = []
         self.selection_count_array = []
         self.value_count_array = []
         self.value_list = []
         self.array_of_cubes = []
-        self.cube = []
-        self.pair = []
-        self.solution_array = []
+
+        self.assign_coloration()
+        self.set_of_values = self.get_value_set()
+        self.value_count_array = self.get_value_count()
+        self.selection_count_array = self.get_selection_counter()
     
     def get_value_index(self,selection_value):
         for i in range (len(self.set_of_values)):
@@ -54,6 +56,7 @@ class Puzzle:
             copy_of_array.append(available_pairs)
             available_pairs = []
         self.array_of_cubes = copy_of_array
+        self.solution_array = []
         return self.array_of_cubes
 
     # TODO: Refactor 
@@ -93,7 +96,6 @@ class Puzzle:
         for i in range(len(self.set_of_values)):
             if(i == index):
                 self.value_count_array[i] += 1
-        # print(self.value_count_array)
 
     def get_selection_counter(self):
         selection_count_array = []
@@ -102,15 +104,17 @@ class Puzzle:
         return selection_count_array
 
     def assign_coloration(self):
+        cube = []
+        pair = []
         for i in range ((self.number_of_cubes * self.number_of_faces)):
             self.value_list.append(self.get_puzzle_four_coloration(i))
-            self.pair.append(self.get_puzzle_four_coloration(i))
+            pair.append(self.get_puzzle_four_coloration(i))
             if ((i + 1) % 2 == 0):
-                self.cube.append(self.pair)
-                self.pair = []
+                cube.append(pair)
+                pair = []
             if((i + 1) % 6 == 0):
-                self.array_of_cubes.append(self.cube)
-                self.cube = []
+                self.array_of_cubes.append(cube)
+                cube = []
                                 
     def get_puzzle_one_coloration(self,cube_face):
         return(1 + (math.floor(cube_face * math.pi) % 30))    
